@@ -1,0 +1,22 @@
+<configure xmlns="http://pylonshq.com/pyramid">
+
+  <!-- this must be included for the view declarations to work -->
+  <include package="pyramid.includes" />
+
+  <renderer
+     factory="pyramid_jinja2.bindings.renderer_factory"
+     name=".html"
+     />
+
+  <view
+     context="server.prices.Quote"
+     view="server.views.price"
+     renderer="server/templates/price_history.pt"
+     />
+
+  <static
+     name="static"
+     path="server/static"
+     />
+
+</configure>
