@@ -1,0 +1,10 @@
+{% extends "index.html" %}
+{% block extrahead %}
+        <script type="text/javascript">
+            var DATA = {{ historic }};
+        </script>
+{% endblock %}
+{% block main %}
+        <h1>{{ msg }}</h1>
+        <div id="vis-target"></div>
+{% endblock %}

@@ -4,19 +4,19 @@
   <include package="pyramid.includes" />
 
   <renderer
-     factory="pyramid_jinja2.bindings.renderer_factory"
+     factory="pyramid_jinja2.renderer_factory"
      name=".html"
      />
 
   <view
-     context="server.prices.Quote"
-     view="server.views.price"
-     renderer="server/templates/price_history.pt"
+     context=".prices.Quote"
+     view=".views.prices"
+     renderer="prices.html"
      />
 
   <static
      name="static"
-     path="server/static"
+     path="qtvis:server/static"
      />
 
 </configure>

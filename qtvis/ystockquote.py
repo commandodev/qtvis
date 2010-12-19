@@ -27,7 +27,12 @@ sample usage:
 
 def __request(symbol, stat):
     url = 'http://finance.yahoo.com/d/quotes.csv?s=%s&f=%s' % (symbol, stat)
-    return urllib.urlopen(url).read().strip().strip('"')
+    print '************* URL', url
+    res = urllib.urlopen(url)
+    if res.status == 200:
+        return res.read().strip().strip('"')
+    raise "Not Found"
+
 
 
 def get_all(symbol):

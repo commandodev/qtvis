@@ -12,19 +12,19 @@ function build_vis(indata){
                 right = 55,
                 top = 10,
                 // flatten to workout the min/max values accross funds
- 
+
                 // convert dates to Date objects
                 data = pv.dict(pv.keys(indata), function(k){
                     // fdata will be an array of {ts: timestamp, val: the_data}
                     var fdata = indata[k];
-                    var ts_data = series_data.sort(function(a, b){ return a.ts - b.ts;});
- 
+                    var ts_data = fdata.sort(function(a, b){ return a.ts - b.ts;});
+
                     ts_data.forEach(function(value){
                         value.date = new Date(value.ts*1000);
- 
+
                     });
                     return ts_data;
- 
+
                 }),
                 //fill = pv.colors("lightpink", "darkgray", "lightblue"),
                 min_max = pv.blend(pv.values(data)),
@@ -54,7 +54,7 @@ function build_vis(indata){
             var i = {x:w - 250, dx:250},
                 fy = pv.Scale.linear(min_val, max_val).range(bottom, h1-top),
                 fx = pv.Scale.linear().range(0, w-right);
- 
+
 
             /* Root panel. */
             var vis = new pv.Panel()
@@ -65,7 +65,7 @@ function build_vis(indata){
                 .left(30)
                 .right(right)
                 .top(top);
- 
+
             /* Focus panel (zoomed in). */
             var focus = vis.add(pv.Panel)
                 .def('highlight_index', -1)
@@ -96,7 +96,7 @@ function build_vis(indata){
                   })
                 //.top(0)
                 .height(h1);
- 
+
 
             /* X-axis ticks. */
             focus.add(pv.Rule)
@@ -105,7 +105,7 @@ function build_vis(indata){
                 .strokeStyle("#eee")
               .anchor("bottom").add(pv.Label)
                 .text(fx.tickFormat);
- 
+
             /* Y-axis ticks. */
             focus.add(pv.Rule)
                 .data(function(){ return fy.ticks(7)})
@@ -113,7 +113,7 @@ function build_vis(indata){
                 .strokeStyle(function(d){ return  d ? "#aaa" : "#000";})
               .anchor("left").add(pv.Label)
                 .text(fy.tickFormat);
- 
+
             /* Focus area chart. */
             focus.add(pv.Panel)
                 .data(function(){
@@ -167,13 +167,13 @@ function build_vis(indata){
                     .text(function(){
                             return this.parent.data();
                     });
- 
+
             /* Context panel (zoomed out). */
             var context = vis.add(pv.Panel)
                 .def('highlight_index', -1)
                 .bottom(0)
                 .height(h2);
- 
+
             /* X-axis ticks. */
             context.add(pv.Rule)
                 .data(x.ticks())
@@ -181,13 +181,13 @@ function build_vis(indata){
                 .strokeStyle("#eee")
               .anchor("bottom").add(pv.Label)
                 .text(x.tickFormat);
- 
+
             /* Y-axis ticks. */
             context.add(pv.Rule)
                 .bottom(y(0))
               .anchor('left').add(pv.Label)
                 .text('0');
- 
+
 
             /* Context line chart. */
             context.add(pv.Panel)
@@ -196,7 +196,7 @@ function build_vis(indata){
                 })
                .add(pv.Line)
                     .lineWidth(function(){
- 
+
                                   return context.highlight_index() == this.parent.index ? 2 : 0.5;
                                })
                     .strokeStyle(line_colors.by(pv.parent))
@@ -217,7 +217,7 @@ function build_vis(indata){
 //                                    console.log(e);
 //                                }
 //                            });
- 
+
             /* Context area chart. */
             context.add(pv.Panel)
                .data(function(){
@@ -252,9 +252,9 @@ function build_vis(indata){
                                 return ybaseline;
                             }
                         })
- 
- 
- 
+
+
+
             /* The selectable, draggable focus region. */
             context.add(pv.Panel)
                 .data([i])
@@ -269,7 +269,7 @@ function build_vis(indata){
                 .cursor("move")
                 .event("mousedown", pv.Behavior.drag())
                 .event("drag", focus);
- 
+
             vis.render();
             //console.log(focus.init())
             return vis

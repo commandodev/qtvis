@@ -35,26 +35,35 @@
 
   <!-- Uncomment if you are specifically targeting less enabled mobile browsers
   <link rel="stylesheet" media="handheld" href="css/handheld.css?v=2">  -->
-
+  <!-- OCSS -->
+  <link href="{{ request.application_url }}/static/css/library.css" rel="stylesheet" type="text/css"/>
+  <link href="{{ request.application_url }}/static/css/grids.css" rel="stylesheet" type="text/css" />
+  <link href="{{ request.application_url }}/static/css/template.css" rel="stylesheet" type="text/css" />
   <!-- All JavaScript at the bottom, except for Modernizr which enables HTML5 elements & feature detects -->
   <script src="{{ request.application_url }}/static/js/libs/modernizr-1.6.min.js"></script>
-
+  {%  block extrahead %}{% endblock %}
 </head>
 
 <body>
 
-  <div id="container">
-    <header>
-
-    </header>
-
-    <div id="main" role="main">
+  <div class="page full">
+	<div class="head">
+        <!--<div id="logo">
+            <h2>{{ title }}</h2>
+        </div>
+        <div id="menu">
+        </div>-->
     </div>
-
-    <footer>
-
-    </footer>
-  </div> <!--! end of #container -->
+<!-- end header -->
+	<div class="body"><!-- Body -->
+		<div class="leftCol gMail">{% block left %}{% endblock %}</div>
+		<!--<div class="rightCol gMail">{% block right %}{% endblock %}</div>-->
+		<div class="main">{% block main %}{% endblock %}</div>
+	</div>
+	<div class="foot">
+        <p id="legal">( c ) 2010. All Rights Reserved.</p>
+	</div>
+</div>
 
 
   <!-- Javascript at the bottom for fast page loading -->
@@ -65,24 +74,10 @@
 
 
   <!-- scripts concatenated and minified via ant build script-->
-  <script src="{{ request.application_url }}/static/js/plugins.js"></script>
-  <script src="{{ request.application_url }}/static/js/script.js"></script>
-  <!-- end concatenated and minified scripts-->
-
-
-  <!--[if lt IE 7 ]>
-    <script src="js/libs/dd_belatedpng.js"></script>
-    <script>DD_belatedPNG.fix('img, .png_bg'); // Fix any <img> or .png_bg bg-images. Also, please read goo.gl/mZiyb </script>
-  <![endif]-->
-
-  <!-- yui profiler and profileviewer - remove for production -->
-  <script src="{{ request.application_url }}/static/js/profiling/yahoo-profiling.min.js"></script>
-  <script src="{{ request.application_url }}/static/js/profiling/config.js"></script>
-  <!-- end profiling code -->
-
+  <script data-main="{{ script_name }}" src="{{ request.application_url }}/static/js/require-jquery.js"></script>
 
   <!-- asynchronous google analytics: mathiasbynens.be/notes/async-analytics-snippet
-       change the UA-XXXXX-X to be your site's ID -->
+       change the UA-XXXXX-X to be your site's ID
   <script>
    var _gaq = [['_setAccount', 'UA-XXXXX-X'], ['_trackPageview']];
    (function(d, t) {
@@ -93,6 +88,6 @@
     s.parentNode.insertBefore(g, s);
    })(document, 'script');
   </script>
-
+  -->
 </body>
 </html>
